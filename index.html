@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dog Age Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .age {
+      font-size: 24px;
+      color: #555;
+    }
+
+    .dog-photo {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>How old are our dogs?</h1>
+    
+    <div class="dog-info">
+      <img class="dog-photo" src="dog1.jpg" alt="Chocho Ebony Lee">
+      <p>Chocho Ebony Lee's age:</p>
+      <p class="age" id="dog1Age"></p>
+    </div>
+
+    <div class="dog-info">
+      <img class="dog-photo" src="dog2.jpg" alt="Tomo">
+      <p>Tomo Arthur Lee's age:</p>
+      <p class="age" id="dog2Age"></p>
+    </div>
+  </div>
+
+  <script>
+    const dog1BirthDate = new Date('2017-10-04');
+    const dog2BirthDate = new Date('2024-01-20');
+
+    function calculateDog1Age() {
+      const currentDate = new Date();
+      const ageInMilliseconds = currentDate - dog1BirthDate;
+      updateAge(ageInMilliseconds, 'dog1Age');
+    }
+
+    function calculateDog2Age() {
+      const currentDate = new Date();
+      const ageInMilliseconds = currentDate - dog2BirthDate;
+      updateAge(ageInMilliseconds, 'dog2Age');
+    }
+
+    function updateAge(ageInMilliseconds, elementId) {
+      const ageInSeconds = Math.floor(ageInMilliseconds / 1000);
+      const seconds = ageInSeconds % 60;
+      const ageInMinutes = Math.floor(ageInSeconds / 60);
+      const minutes = ageInMinutes % 60;
+      const ageInHours = Math.floor(ageInMinutes / 60);
+      const hours = ageInHours % 24;
+      const ageInDays = Math.floor(ageInHours / 24);
+      const days = ageInDays % 30; // Approximation of months
+      const ageInMonths = Math.floor(ageInDays / 30);
+      const months = ageInMonths % 12;
+      const years = Math.floor(ageInMonths / 12);
+
+      const yearString = years === 1 ? 'year' : 'years';
+      const monthString = months === 1 ? 'month' : 'months';
+      const dayString = days === 1 ? 'day' : 'days';
+      const hourString = hours === 1 ? 'hour' : 'hours';
+      const minuteString = minutes === 1 ? 'minute' : 'minutes';
+      const secondString = seconds === 1 ? 'second' : 'seconds';
+
+      document.getElementById(elementId).textContent = `${years} ${yearString}, ${months} ${monthString}, ${days} ${dayString}, ${hours} ${hourString}, ${minutes} ${minuteString}, ${seconds} ${secondString}`;
+    }
+
+    calculateDog1Age();
+    calculateDog2Age();
+    setInterval(calculateDog1Age, 1000);
+    setInterval(calculateDog2Age, 1000);
+  </script>
+</body>
+</html>
