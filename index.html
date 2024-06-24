@@ -6,35 +6,34 @@
   <title>Dog Age Calculator</title>
   <style>
     body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-}
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
 
-.container {
-  text-align: center;
-  padding: 20px;
-}
+    .container {
+      text-align: center;
+      padding: 20px;
+    }
 
-h1 {
-  color: #333;
-  margin-top: 20px; /* Add some space at the top */
-}
+    h1 {
+      color: #333;
+      margin-top: 20px; /* Add some space at the top */
+    }
 
-.age {
-  font-size: 24px;
-  color: #555;
-}
+    .age {
+      font-size: 24px;
+      color: #555;
+    }
 
-.dog-photo {
-  width: 150px; /* Adjust photo size for better mobile display */
-  height: 150px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 10px; /* Reduce margin for better spacing */
-}
-
+    .dog-photo {
+      width: 150px; /* Adjust photo size for better mobile display */
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 10px; /* Reduce margin for better spacing */
+    }
   </style>
 </head>
 <body>
@@ -58,16 +57,32 @@ h1 {
     const dog1BirthDate = new Date('2017-10-04');
     const dog2BirthDate = new Date('2024-01-20');
 
-    function calculateDog1Age() {
-      const currentDate = new Date();
-      const ageInMilliseconds = currentDate - dog1BirthDate;
-      updateAge(ageInMilliseconds, 'dog1Age');
+    function getCurrentDateInET() {
+      const now = new Date();
+      const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/New_York',
+        hour12: false,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+      const parts = formatter.formatToParts(now);
+      const dateTimeObject = {};
+      parts.forEach(({ type, value }) => {
+        dateTimeObject[type] = value;
+      });
+      return new Date(
+        `${dateTimeObject.year}-${dateTimeObject.month}-${dateTimeObject.day}T${dateTimeObject.hour}:${dateTimeObject.minute}:${dateTimeObject.second}`
+      );
     }
 
-    function calculateDog2Age() {
-      const currentDate = new Date();
-      const ageInMilliseconds = currentDate - dog2BirthDate;
-      updateAge(ageInMilliseconds, 'dog2Age');
+    function calculateDogAge(dogBirthDate, elementId) {
+      const currentDate = getCurrentDateInET();
+      const ageInMilliseconds = currentDate - dogBirthDate;
+      updateAge(ageInMilliseconds, elementId);
     }
 
     function updateAge(ageInMilliseconds, elementId) {
@@ -93,10 +108,13 @@ h1 {
       document.getElementById(elementId).textContent = `${years} ${yearString}, ${months} ${monthString}, ${days} ${dayString}, ${hours} ${hourString}, ${minutes} ${minuteString}, ${seconds} ${secondString}`;
     }
 
-    calculateDog1Age();
-    calculateDog2Age();
-    setInterval(calculateDog1Age, 1000);
-    setInterval(calculateDog2Age, 1000);
+    function calculateAges() {
+      calculateDogAge(dog1BirthDate, 'dog1Age');
+      calculateDogAge(dog2BirthDate, 'dog2Age');
+    }
+
+    calculateAges();
+    setInterval(calculateAges, 1000);
   </script>
 </body>
 </html>
