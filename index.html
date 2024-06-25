@@ -85,7 +85,7 @@
       updateAge(ageInMilliseconds, elementId);
     }
 
-    function updateAge(ageInMilliseconds, elementId) {
+    function updateAge2(ageInMilliseconds, elementId) {
       const ageInSeconds = Math.floor(ageInMilliseconds / 1000);
       const seconds = ageInSeconds % 60;
       const ageInMinutes = Math.floor(ageInSeconds / 60);
@@ -107,10 +107,33 @@
 
       document.getElementById(elementId).textContent = `${years} ${yearString}, ${months} ${monthString}, ${days} ${dayString}, ${hours} ${hourString}, ${minutes} ${minuteString}, ${seconds} ${secondString}`;
     }
+    
+    function updateAge(ageInMilliseconds, elementId) {
+      const ageInSeconds = Math.floor(ageInMilliseconds / 1000);
+      const seconds = ageInSeconds % 60;
+      const ageInMinutes = Math.floor(ageInSeconds / 60);
+      const minutes = ageInMinutes % 60;
+      const ageInHours = Math.floor(ageInMinutes / 60) - 4;
+      const hours = ageInHours % 24;
+      const ageInDays = Math.floor(ageInHours / 24);
+      const days = ageInDays % 30; // Approximation of months
+      const ageInMonths = Math.floor(ageInDays / 30);
+      const months = ageInMonths % 12;
+      const years = Math.floor(ageInMonths / 12);
+
+      const yearString = years === 1 ? 'year' : 'years';
+      const monthString = months === 1 ? 'month' : 'months';
+      const dayString = days === 1 ? 'day' : 'days';
+      const hourString = hours === 1 ? 'hour' : 'hours';
+      const minuteString = minutes === 1 ? 'minute' : 'minutes';
+      const secondString = seconds === 1 ? 'second' : 'seconds';
+
+      document.getElementById(elementId).textContent = `${years} ${yearString}, ${months} ${monthString}, ${days} ${dayString}, ${hours} ${hourString}, ${minutes} ${minuteString}, ${seconds} ${secondString}`;
+    }
 
     function calculateAges() {
       calculateDogAge(dog1BirthDate, 'dog1Age');
-      calculateDogAge(dog2BirthDate, 'dog2Age');
+      calculateDogAge2(dog2BirthDate, 'dog2Age');
     }
 
     calculateAges();
