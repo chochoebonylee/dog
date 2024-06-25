@@ -90,7 +90,7 @@
       const seconds = ageInSeconds % 60;
       const ageInMinutes = Math.floor(ageInSeconds / 60);
       const minutes = ageInMinutes % 60;
-      const ageInHours = Math.floor(ageInMinutes / 60);
+      const ageInHours = Math.floor(ageInMinutes / 60) - 5;
       const hours = ageInHours % 24;
       const ageInDays = Math.floor(ageInHours / 24);
       const days = ageInDays % 30; // Approximation of months
